@@ -1,0 +1,21 @@
+
+version: '3.8'
+
+services:
+  openscap:
+    build:
+      context: ./openscap
+      dockerfile: Dockerfile
+    volumes:
+      - ./scap_results:/results
+    command: tail -f /dev/null
+
+  openvas:
+    image: mikesplain/openvas
+    ports:
+      - "443:443"
+    volumes:
+      - openvas_data:/var/lib/openvas
+
+volumes:
+  openvas_data:
